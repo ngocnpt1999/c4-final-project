@@ -41,8 +41,8 @@ export async function create(item: TodoItem): Promise<TodoItem> {
 
 export async function update(
     item: TodoUpdate,
-    todoId: string,
-    userId: string
+    userId: string,
+    todoId: string
 ): Promise<TodoUpdate> {
     const params: DocumentClient.UpdateItemInput = {
         TableName: tableName,
@@ -68,7 +68,7 @@ export async function update(
     return updatedTodo;
 }
 
-export async function remove(todoId: string, userId: string): Promise<string> {
+export async function remove(userId: string, todoId: string): Promise<string> {
     const params = {
         Key: {
             userId: userId,

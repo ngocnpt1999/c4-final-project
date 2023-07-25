@@ -12,13 +12,11 @@ import { TodoUpdate } from '../models/TodoUpdate';
 const bucketName = process.env.S3_BUCKET_NAME;
 
 // TODO: Implement businessLogic
-export async function getAllTodo(jwtToken: string): Promise<TodoItem[]> {
-    var userId = parseUserId(jwtToken);
+export async function getAllTodo(userId: string): Promise<TodoItem[]> {
     return TodoAccess.findAllTodoByUserId(userId);
 }
 
-export async function create(jwtToken: string, request: CreateTodoRequest): Promise<TodoItem> {
-    var userId = parseUserId(jwtToken);
+export async function createTodo(userId: string, request: CreateTodoRequest): Promise<TodoItem> {
     var todoId = uuidv4();
     var imageUrl = `https://${bucketName}.s3.amazonaws.com/${todoId}`;
     return TodoAccess.create({
@@ -31,12 +29,10 @@ export async function create(jwtToken: string, request: CreateTodoRequest): Prom
     });
 }
 
-export async function update(jwtToken: string, todoId: string, request: UpdateTodoRequest): Promise<TodoUpdate> {
-    var userId = parseUserId(jwtToken);
-    return TodoAccess.update({ ...request }, todoId, userId);
+export async function updateTodo(userId: string, todoId: string, request: UpdateTodoRequest): Promise<TodoUpdate> {
+    return TodoAccess.update({ ...request }, userId, todoId);
 }
 
-export async function remove(jwtToken: string, todoId: string): Promise<string> {
-    var userId = parseUserId(jwtToken)
-    return TodoAccess.remove(todoId, userId);
+export async function deleteTodo(userId: string, todoId: string): Promise<string> {
+    return TodoAccess.remove(userId, todoId);
 }
