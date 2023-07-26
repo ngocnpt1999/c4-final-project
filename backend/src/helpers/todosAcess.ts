@@ -12,7 +12,7 @@ const logger = createLogger('TodosAccess')
 // TODO: Implement the dataLayer logic
 const documentClient = new DocumentClient();
 
-const tableName = process.env.TODO_TABLE_NAME;
+const tableName = process.env.TODOS_TABLE;
 
 export async function findAllTodoByUserId(userId: string): Promise<TodoItem[]> {
     const params: DocumentClient.QueryInput = {
