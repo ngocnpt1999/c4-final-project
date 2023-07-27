@@ -1,9 +1,10 @@
-import { S3 } from 'aws-sdk';
+import * as AWS from 'aws-sdk'
 
-// const XAWS = AWSXRay.captureAWS(AWS)
+const AWSXRay = require('aws-xray-sdk')
+const XAWS = AWSXRay.captureAWS(AWS)
 
 // TODO: Implement the fileStogare logic
-const s3 = new S3({ signatureVersion: 'v4' });
+const s3 = new XAWS.S3({ signatureVersion: 'v4' });
 
 const bucketName = process.env.ATTACHMENT_S3_BUCKET;
 
