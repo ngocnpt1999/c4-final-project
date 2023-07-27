@@ -63,7 +63,7 @@ functions:
       - Effect: Allow
         Action:
           - s3:GetObject
-        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET_VALUE}/*
+        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
       - Effect: Allow
         Action:
           - dynamodb:Query
@@ -178,7 +178,7 @@ functions:
       - Effect: Allow
         Action:
           - s3:PutObject
-        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET_VALUE}/*
+        Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
       - Effect: Allow
         Action:
           - xray:PutTraceSegments
@@ -235,7 +235,7 @@ resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:provider.environment.ATTACHMENT_S3_BUCKET_VALUE}
+        BucketName: ${self:provider.environment.ATTACHMENT_S3_BUCKET}
         OwnershipControls:
           Rules:
             - ObjectOwnership: ObjectWriter
@@ -271,7 +271,7 @@ resources:
               Effect: Allow
               Action: 's3:GetObject'
               Principal: '*'
-              Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET_VALUE}/*'
+              Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*'
         Bucket: !Ref AttachmentsBucket
 
     RequestBodyValidatorToDos:
