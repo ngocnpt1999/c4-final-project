@@ -53,15 +53,15 @@ export async function update(
             userId,
             todoId
         },
-        UpdateExpression: 'set #nameItem = :nameItem, #dueDateItem = :dueDateItem, #doneITem = :doneItem',
+        UpdateExpression: 'set #nameItem = :nameItem, #dueDateItem = :dueDateItem, #doneItem = :doneItem',
         ExpressionAttributeNames: {
             '#nameItem': 'name',
-            '#doneITem': 'done',
+            '#doneItem': 'done',
             '#dueDateItem': 'dueDate'
         },
         ExpressionAttributeValues: {
             ':nameItem': item.name,
-            ':doneITem': item.done,
+            ':doneItem': item.done,
             ':dueDateItem': item.dueDate
         },
         ReturnValues: 'ALL_NEW'
