@@ -96,9 +96,11 @@ functions:
           cors: true
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
-          request:
-            schemas:
-              application/json: ${file(models/create-todo-model.json)}
+          documentation:
+            summary: Create a new item todo
+            description: Create a new item todo
+            requestModels:
+              'application/json': CreateTodoRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -122,9 +124,11 @@ functions:
           method: patch
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
-          request:
-            schemas:
-              application/json: ${file(models/update-todo-model.json)}
+          documentation:
+            summary: Update a item todo
+            description: Update a item todo
+            requestModels:
+              'application/json': UpdateTodoRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -192,6 +196,15 @@ functions:
 
 resources:
   Resources:
+    RequestBodyValidatorToDos:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
+
     # Add necessary AWS resources. You will need at least the following AWS resources
     # TODO: Fill the properties
     # Feel free to change the names as you like. 
@@ -277,12 +290,3 @@ resources:
               Principal: '*'
               Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*'
         Bucket: !Ref AttachmentsBucket
-
-    RequestBodyValidatorToDos:
-      Type: AWS::ApiGateway::RequestValidator
-      Properties:
-        Name: 'request-body-validator'
-        RestApiId:
-          Ref: ApiGatewayRestApi
-        ValidateRequestBody: true
-        ValidateRequestParameters: false
