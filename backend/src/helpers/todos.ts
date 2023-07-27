@@ -1,15 +1,11 @@
 import * as TodoAccess from './todosAcess'
-import * as AttachmentUtils from './attachmentUtils';
 import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
-import { createLogger } from '../utils/logger'
 import { v4 as uuidv4 } from 'uuid';
-import * as createError from 'http-errors'
-import { parseUserId } from '../auth/utils';
 import { TodoUpdate } from '../models/TodoUpdate';
 
-const bucketName = process.env.S3_BUCKET_NAME;
+const bucketName = process.env.ATTACHMENT_S3_BUCKET;
 
 // TODO: Implement businessLogic
 export async function getAllTodo(userId: string): Promise<TodoItem[]> {
